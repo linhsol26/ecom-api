@@ -4,7 +4,9 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
 const cors = require('cors')
-require('dotenv/config')
+require('dotenv').config()
+const authJwt = require('./helpers/jwt')
+const errorHandler = require('./helpers/error-handler')
 
 app.use(cors())
 app.options('*', cors())
@@ -13,6 +15,8 @@ app.options('*', cors())
 // ?????
 app.use(bodyParser.json())
 app.use(morgan('tiny'))
+app.use(authJwt)
+app.use(errorHandler)
 
 const api = process.env.API_URL
 
@@ -30,8 +34,6 @@ app.use(`${api}/users`, usersRouter)
 app.listen(3000, () => {
     console.log('server is running http://localhost:3000')
 })
-
-const Product = require('./models/product')
 
 mongoose.connect(process.env.CONNECTION_STRING, {
             useNewUrlParser: true,

@@ -104,15 +104,15 @@ router.put('/:id', async (req, res) => {
         return res.status(400).send('Invalid Product Id')
     }
 
-    if (!mongoose.isValidObjectId(req.body.category)) {
-        return res.status(400).send('Invalid Category')
-    }
+    // if (!mongoose.isValidObjectId(req.body.category)) {
+    //     return res.status(400).send('Invalid Category')
+    // }
 
-    const category = await Category.findById(req.body.category)
+    // const category = await Category.findById(req.body.category)
 
-    if (!category) {
-        return res.status(400).send('Invalid Category')
-    }
+    // if (!category) {
+    //     return res.status(400).send('Invalid Category')
+    // }
 
     const product = await Product.findByIdAndUpdate(req.params.id, {
         ...req.body
