@@ -11,6 +11,11 @@ function authJwt() {
         path: [
             {
                 // copy regular expression hi
+                url: /\/public\/uploads(.*)/,
+                method: ['GET', 'OPTIONS']
+            },
+            {
+                // copy regular expression hi
                 url: /\/api\/v1\/products(.*)/,
                 method: ['GET', 'OPTIONS']
             },
@@ -19,6 +24,11 @@ function authJwt() {
                 url: /\/api\/v1\/categories(.*)/,
                 method: ['GET', 'OPTIONS']
             },
+            {
+                // copy regular expression hi
+                url: /\/api\/v1\/orders(.*)/,
+                method: ['GET', 'OPTIONS', 'POST']
+            },
             `${api}/users/login`,
             `${api}/users/register`
         ]
@@ -26,7 +36,7 @@ function authJwt() {
 }
 
 function isRevoked(req, payload, done) {
-    if (payload.isAdmin) {
+    if (!payload.isAdmin) {
         done(null, true)
     }
 
